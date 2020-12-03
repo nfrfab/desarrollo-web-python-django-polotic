@@ -1,0 +1,64 @@
+{% extends "clinica/medicos/base.html" %}
+{% block body %}
+    
+    
+    <div class="container">
+        <h1>Medico: {{ personal.nombre }} </h1>
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-1">Filtro de Busqueda de Turnos</h4>
+            <form action="{% url 'clinica:medicosListaPacientes' personal.id %}" method="POST">
+                
+                {% csrf_token %}
+                <label for="anio">anio: </label>
+                <input id="anio" type="text" name="anio">
+                <label for="mes">mes: </label>
+                <input id="mes" type="text" name="mes">
+                <label for="dia">dia: </label>
+                <input id="dia" type="text" name="dia">
+                <input type="submit" value="Filtrar">
+                
+            </form>
+            
+        </div>
+        <p>
+        <h4 class="mb-1">Listado de turnos de Pacientes</h4>
+        <div class="list-group">
+            <table class="table table-condensed table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th style="width:5%">#</th>	
+                        <th style="width:10%">Fecha</th>  
+                        <th style="width:10%">Hora</th>
+                        <th style="width:25%">Paciente</th>
+                        <th style="width:5%">Presente</th>
+                        <th style="width:25%">Accion</th>
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for turno in turnos %}
+                        <tr>
+                            <td>{{turno.id}}</td>
+                            <td>{{turno.fecha}}</td>
+                            <td>{{turno.hora}}</td>
+                            <td>{{turno.paciente}}</td>
+                            <td>{{turno.pacientepresente}}</td>
+                            <td>
+                                <div class="row">
+                                     
+                                    <div class="col-sm-4">
+                                        <a href="{% url 'clinica:medicosDetallePaciente' turno.id %}"">	 
+                                            <button class="btn btn-primary" type="submit">Ver Paciente</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+{% endblock %}

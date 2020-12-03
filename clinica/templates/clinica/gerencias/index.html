@@ -1,0 +1,19 @@
+{% extends "clinica/gerencias/base.html" %}
+{% block body %}
+    <h1>Gegrente</h1>
+    <div class="container">
+        <h1>Gerente: {{ personal.nombre }} </h1>
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-1">Filtro de Busqueda de Turnos</h4>
+            <form action="{% url 'clinica:medicosListaPacientes' personal.id %}" method="POST">
+                
+                {% csrf_token %}
+                {{ FormularioMesAnio }}
+                <input type="submit">
+            </form>
+            
+        </div>
+    </div>
+    
+    
+{% endblock %}

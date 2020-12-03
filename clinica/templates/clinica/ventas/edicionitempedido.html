@@ -1,0 +1,19 @@
+{% extends "clinica/ventas/base.html" %}
+{% block body %}
+    <div class="container">
+        <h1>Ventas. Edicion de item del Pedido</h1>
+        <form action="{% url 'clinica:ventasEdicionItemPedido' itemPedido.id %}" method="POST">
+                
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit">
+        </form>
+        <div class="row">
+            <a href="{% url 'clinica:ventasDetallePedido' itemPedido.pedido.id %}"">	 <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Volver</button>
+            </a>
+        </div>
+    </div>
+    
+    
+{% endblock %}

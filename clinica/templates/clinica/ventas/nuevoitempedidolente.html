@@ -1,0 +1,14 @@
+{% extends "clinica/secretarias/base.html" %}
+{% block body %}
+    <div class="container">
+        <h1>Nuevo Producto</h1>
+        <form action="{% url 'clinica:ventasNuevoItemPedidoLente' pedido.id %}" method="POST">
+            
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+    </div>
+    
+    
+{% endblock %}

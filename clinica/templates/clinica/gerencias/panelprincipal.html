@@ -1,0 +1,40 @@
+{% extends "clinica/gerencias/base.html" %}
+{% block body %}
+    <h1>Gerente: {{ personal.nombre }} </h1>
+    <h2>Panel de Reportes</h2>
+    <div class="col-md-12 order-md-1">
+        <h4 class="mb-1">Ventas totales por mes por Vendedores</h4>
+        <form action="{% url 'clinica:gerenciasVentasPormesPorVendedoresFiltrar' personal.id %}" method="POST">
+            
+            {% csrf_token %}
+            {{ FormularioMesAnio }}
+            <input type="submit">
+        </form>
+        
+    </div>
+
+    <div class="col-md-12 order-md-1">
+        <h4 class="mb-1">Productos mas vendidos por mes</h4>
+        <form action="{% url 'clinica:gerenciasProductosMasVendidosFiltrar' personal.id %}" method="POST">
+            {% csrf_token %}
+            {{ FormularioMesAnio }}
+            <input type="submit">
+        </form>
+    </div>
+    <div class="col-md-12 order-md-1">
+        <h4 class="mb-1">Pacientes con pedidos realizados mes</h4>
+        <form action="{% url 'clinica:gerenciasCantidadProductosPedidosPorPacientesEnMesFiltrar' personal.id %}" method="POST">
+            {% csrf_token %}
+            {{ FormularioMesAnio }}
+            <input type="submit">
+        </form>
+    </div>
+    <div class="col-md-12 order-md-1">
+        <h4 class="mb-1">Pacientes que SI/NO asistieron a los turnos en el periodo</h4>
+        <form action="{% url 'clinica:gerenciasAsistenciasDePacientesFiltrar' personal.id %}" method="POST">
+            {% csrf_token %}
+            {{ FormularioMesAnioAsistenciaChoice }}
+            <input type="submit">
+        </form>
+    </div>
+{% endblock %}

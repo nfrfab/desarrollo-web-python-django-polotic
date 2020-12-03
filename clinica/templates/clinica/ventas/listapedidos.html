@@ -1,0 +1,59 @@
+{% extends "clinica/ventas/base.html" %}
+{% block body %}
+    
+    <div class="container">
+        <h1>Vendedor: {{ personal.nombre }} </h1>
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-1">Listado de Pedidos</h4>
+        </div>
+        <div class="list-group">
+            <table class="table table-condensed table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th style="width:5%">#</th>	
+                        
+                        <th style="width:25%">Paciente</th>
+                        <th style="width:10%">Tipo Pago</th>
+                        <th style="width:10%">Estado</th>
+                        <th style="width:25%">Accion</th>
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                        <tr>
+                            <td>{{pedido.id}}</td>
+                            
+                            <td>{{pedido.paciente}}</td>
+                            <td>{{pedido.tipoPago}}</td>
+                            <td>{{pedido.estado}}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <a href="{% url 'clinica:ventasDetallePedido' pedido.id %}"">	 
+                                            <button class="btn btn-primary" type="submit">Detalle Pedido</button>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <form class="form-inline" action="{% url 'clinica:ventasBorrarPedido' pedido.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="idPedido" value="{{pedido.id}}"/>
+                                            <button class="btn btn-primary " type="submit">Borrar Pedido</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <a href="{% url 'clinica:ventasNuevoPedido' personal.id %}"">	 <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Nuevo Pedido</button>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

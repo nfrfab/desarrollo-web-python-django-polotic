@@ -1,0 +1,87 @@
+{% extends "clinica/secretarias/base.html" %}
+{% block body %}
+    <div class="container">
+        <h1>Secretaria: {{ secretaria.nombre }} </h1>
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-1">Listado de Turnos</h4>
+        </div>
+        <div class="list-group">
+            <table class="table table-condensed table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th style="width:5%">#</th>	
+                        <th style="width:7%">Fecha</th>  
+                        <th style="width:7%">Hora</th>
+                        <th style="width:25%">Paciente</th>
+                        <th style="width:5%">Presente</th>
+                        <th style="width:35%">Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for turno in turnos %}
+                        <tr>
+                            <td>{{turno.id}}</td>
+                            <td>{{turno.fecha}}</td>
+                            <td>{{turno.hora}}</td>
+                            <td>{{turno.paciente}}</td>
+                            <td>{{turno.pacientepresente}}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        {% if turno.pacientepresente %}
+                                            <form class="form-inline" action="{% url 'clinica:secretariasModificarEstadoTurno' turno.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="pacientepresente" value="0"/>
+                                                <button class="btn btn-primary " type="submit">Ausente.</button>
+                                            </form>
+                                        
+                                        {% else %}
+                                            <form class="form-inline" action="{% url 'clinica:secretariasModificarEstadoTurno' turno.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="pacientepresente" value="1"/>
+                                                <button class="btn btn-primary " type="submit">Presente</button>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <form class="form-inline" action="{% url 'clinica:borrarTurno' turno.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="idTurno" value="{{turno.id}}"/>
+                                            <button class="btn btn-primary " type="submit">Borrar</button>
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <a href="{% url 'clinica:edicionTurno' turno.id %}"">	 
+                                            <button class="btn btn-primary" type="submit">Editar.</button>
+                                        </a>
+                                        
+                                    </div>
+                                    
+                                    <div class="col-sm-3">
+                                        <form class="form-inline" action="{% url 'clinica:secretariasDetallePaciente' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="idPaciente" value="{{turno.paciente.id}}"/>
+                                            <input type="hidden" name="idSecretaria" value="{{secretaria.id}}"/>
+                                            <button class="btn btn-primary " type="submit">Detalle</button>
+                                        </form>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <a href="{% url 'clinica:nuevoTurno' secretaria.id %}"">	 <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Nuevo Turno</button>
+            </a>
+            <a href="{% url 'clinica:nuevoPaciente' secretaria.id %}"">	 <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Nuevo Paciente</button>
+            </a>
+        </div>
+     </div>
+
+{% endblock %}

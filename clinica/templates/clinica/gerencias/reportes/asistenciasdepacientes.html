@@ -1,0 +1,28 @@
+{% extends "clinica/gerencias/reportes/base.html" %}
+{% block body %}
+    <p align="center"> <font face="Verdana" size="5" color="#666666"><u>Pacientes que {{ varAsistencia }} a los turnos en el periodo</u></font></i></p>
+
+    <div align="center">
+        <center>
+            <table border="1" cellpadding="0" cellspacing="0"  bordercolor="#CCCCCC" style="border-collapse: collapse" width="90%">
+  
+	            <tr>
+                    
+                    <td width="20%" height="35"><p align="left"><font face="Verdana" size="4" >Paciente</font></i></td>
+                   
+	  
+	            </tr>
+
+                {% for registro in totalRegistros %}
+
+                    <tr>
+                        	
+                        <td width="20%" height="35">  <p align="left"><font face="Verdana" size="4" >{{ registro.paciente2 }} </font></i></td>
+                        
+	                </tr>
+
+                {% endfor %}
+            </table>
+        </center>
+    </div>
+{% endblock %}

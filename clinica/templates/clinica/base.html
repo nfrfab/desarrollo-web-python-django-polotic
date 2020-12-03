@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Clinica
+        </title>
+        {% load bootstrap4 %}
+ 
+        {# CSS Bootstrap #}
+        {% bootstrap_css %}
+    </head>
+    <body class="text-center">
+        {% block body %}
+        {% endblock %}
+        {% bootstrap_javascript jquery='full' %}
+    </body>
+    
+</html>

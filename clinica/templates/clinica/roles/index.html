@@ -1,0 +1,9 @@
+{% extends "clinica/roles/base.html" %}
+{% block body %}
+    <h1>Roles</h1>
+    <ul>
+        {% for rol in roles %}
+            <li><a href="{% url 'clinica:rolesRol' rol.id %}">{{ rol.id }}</a>> : {{ rol.nombre }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

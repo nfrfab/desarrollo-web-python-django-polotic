@@ -1,0 +1,46 @@
+{% extends "clinica/talleres/base.html" %}
+{% block body %}
+    <div class="container">
+        <h1>Usuario Taller: {{ personal.nombre }} </h1>
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-1">Listado de Pedidos</h4>
+        </div>
+        <div class="list-group">
+            <table class="table table-condensed table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th style="width:5%">#</th>	
+                        
+                        <th style="width:25%">Paciente</th>
+                        <th style="width:10%">Tipo Pago</th>
+                        <th style="width:10%">Estado</th>
+                        <th style="width:25%">Accion</th>
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                        <tr>
+                            <td>{{pedido.id}}</td>
+                            
+                            <td>{{pedido.paciente}}</td>
+                            <td>{{pedido.tipoPago}}</td>
+                            <td>{{pedido.estado}}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <a href="{% url 'clinica:tallerDetallePedido' pedido.id %}"">	 
+                                            <button class="btn btn-primary" type="submit">Detalle Pedido</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "clinica/secretarias/base.html" %}
+{% block body %}
+    <div class="container">
+        <h1>Nuevo turno</h1>
+        <form action="{% url 'clinica:nuevoTurno' secretaria_id %}" method="POST">
+            
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+
+        <p>
+        <div class="row">
+            <div class="col-sm-4">
+                <a href="{% url 'clinica:secretariasIndex' %}"">
+                    <button class="btn btn-success btn-lg btn-block" type="submit">Volver</button>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a href="{% url 'clinica:nuevoPaciente' secretaria_id %}"">
+                    <button class="btn btn-success btn-lg btn-block" type="submit">Agregar Nuevo Paciente</button>
+                </a>
+            </div>
+        </div>
+        
+        
+    </div>
+    
+    
+{% endblock %}

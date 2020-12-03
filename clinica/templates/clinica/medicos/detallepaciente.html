@@ -1,0 +1,50 @@
+{% extends "clinica/medicos/base.html" %}
+{% block body %}
+    <div class="container">
+        <h1>Medico: {{ turno.medico.nombre }}</h1>
+        <h2>Paciente: {{ turno.paciente.nombre }}</h2>
+        <p>
+        <h2>Historial Medico</h2>
+        <div class="list-group">
+            <table class="table table-condensed table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th style="width:10%">#</th>
+                        <th style="width:25%">Medico</th>	
+                        <th style="width:55%">Observacion</th>
+                        <th style="width:10%">Accion</th>
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for historiaClinica in historiasClinica %}
+                        <tr>
+                            <td>{{historiaClinica.id}}</td>
+                            <td>{{historiaClinica.medico}}</td>
+                            <td>{{historiaClinica.observacion}}</td>
+                            <td>
+                                No disponible
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p>
+        <h2>Nueva Observacion</h2>
+        <form action="{% url 'clinica:medicosNuevaHistoriaClinica' turno.id %}" method="POST">
+            
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+        <div class="row">
+            <a href="{% url 'clinica:medicosIndex' %}"">	 <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Volver</button>
+            </a>
+        </div>
+    </div>
+    
+    
+{% endblock %}

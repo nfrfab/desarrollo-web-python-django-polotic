@@ -1,0 +1,17 @@
+{% extends "clinica/ventas/base.html" %}
+{% block body %}
+    <div class="container">
+        <h1>Nuevo Pedido</h1>
+        <form action="{% url 'clinica:ventasNuevoPedido' vendedor.id %}" method="POST">
+            
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+        <div class="row">
+            <a href="{% url 'clinica:ventasIndex' %}"">	 <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Volver</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

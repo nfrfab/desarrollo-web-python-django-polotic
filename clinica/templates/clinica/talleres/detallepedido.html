@@ -1,0 +1,64 @@
+{% extends "clinica/talleres/base.html" %}
+{% block body %}
+    
+    <div class="container">
+        <div class="row">
+            <h1>Usuario Taller: {{ personal.nombre }} </h1>
+            <h2>Paciente: {{ pedido.paciente }}</h2>
+        </div>
+        <p></p>
+        <div class="row">
+            <h2>Estado pedido: {{ estadoPedido }} - </h2>
+            <form class="form-inline" action="{% url 'clinica:tallerModificarEstadoPedido' pedido.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="estadoPedido" value="F"/>
+                <button class="btn btn-primary " type="submit">Cambiar a estado Finalizado</button>
+            </form>
+        </div>
+        <p>
+            
+        <p>
+
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-1">Lista de productos del pedido</h4>
+        </div>
+        <div class="list-group">
+            <table class="table table-condensed table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th style="width:5%">#</th>	
+                        
+                        <th style="width:35%">Producto</th>
+                        <th style="width:10%">Cantidad</th>
+                        <th style="width:10%">Armazon</th>
+                        <th style="width:10%">Izquierda</th>
+                        <th style="width:10%">Lejos</th>
+                        
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for itemPedido in itemsPedido %}
+                        <tr>
+                            <td>{{itemPedido.id}}</td>
+                            
+                            <td>{{itemPedido.producto.id}} : {{itemPedido.producto.nombre}}</td>
+                            <td>{{itemPedido.cantidad}}</td>
+                            <td>{{itemPedido.armazon}}</td>
+                            <td>{{itemPedido.izquierda}}</td>
+                            <td>{{itemPedido.lejos}}</td>
+                            
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <a href="{% url 'clinica:talleresIndex' %}"">	 <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Volver</button>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

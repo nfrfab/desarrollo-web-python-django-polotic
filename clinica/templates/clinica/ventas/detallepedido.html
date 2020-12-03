@@ -1,0 +1,94 @@
+{% extends "clinica/ventas/base.html" %}
+{% block body %}
+    
+    <div class="container">
+        <div class="row">
+            <h1>Vendedor: {{ personal.nombre }} </h1>
+            <h2>Paciente: {{ pedido.paciente }}</h2>
+        </div>
+        <p></p>
+        <div class="row">
+            <h2>Estado pedido: {{ estadoPedido }} - </h2>
+            <form class="form-inline" action="{% url 'clinica:ventasModificarEstadoPedido' pedido.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="estadoPedido" value="O"/>
+                <button class="btn btn-primary " type="submit">Cambiar a estado Pedido</button>
+            </form>
+            <form class="form-inline" action="{% url 'clinica:ventasModificarEstadoPedido' pedido.id %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="estadoPedido" value="T"/>
+                <button class="btn btn-primary " type="submit">Cambiar a estado Taller</button>
+            </form>
+        </div>
+        <p>
+            
+        <p>
+
+        <div class="col-md-12 order-md-1">
+            <h4 class="mb-1">Lista de productos del pedido</h4>
+        </div>
+        <div class="list-group">
+            <table class="table table-condensed table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th style="width:5%">#</th>	
+                        
+                        <th style="width:25%">Producto</th>
+                        <th style="width:10%">Cantidad</th>
+                        <th style="width:10%">Total</th>
+                        <th style="width:25%">Accion</th>
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for itemPedido in itemsPedido %}
+                        <tr>
+                            <td>{{itemPedido.id}}</td>
+                            
+                            <td>{{itemPedido.producto}}</td>
+                            <td>{{itemPedido.cantidad}}</td>
+                            <td>{{itemPedido.total}}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <a href="{% url 'clinica:ventasEdicionItemPedido' itemPedido.id %}"">	 
+                                            <button class="btn btn-primary" type="submit">Editar Producto</button>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <form class="form-inline" action="{% url 'clinica:ventasBorrarItemPedido' itemPedido.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="idPedido" value="{{itemPedido.id}}"/>
+                                            <button class="btn btn-primary " type="submit">Borrar producto</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+       
+        <div class="row">
+            <div class="col-sm-4">
+                <a href="{% url 'clinica:ventasIndex' %}"">	 
+                    <button class="btn btn-success btn-lg btn-block" type="submit">Volver</button>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a href="{% url 'clinica:ventasNuevoItemPedidoLente' pedido.id %}"">	 
+                    <button class="btn btn-success btn-lg btn-block" type="submit">Agregar Producto (LENTE)</button>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <a href="{% url 'clinica:ventasNuevoItemPedido' pedido.id %}"">	 
+                    <button class="btn btn-success btn-lg btn-block" type="submit">Agregar Producto (otros)</button>
+                </a>
+            </div>
+        </div>
+                
+    </div>
+
+{% endblock %}

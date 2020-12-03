@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Clinica - Secretaria
+        </title>
+        {% load bootstrap4 %}
+        {# CSS Bootstrap #}
+        {% bootstrap_css %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/simple-sidebar.css' %}">
+    </head>
+    <body>
+        <div class="d-flex" id="wrapper">
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading bg-dark text-white">Menú de Opciones</div>
+                <div class="list-group list-group-flush">
+                    <a href="/accounts/logout" class="list-group-item list-group-item-action bg-dark text-white">LogOut</a>
+                    
+                </div>
+            </div>
+    
+            <div id="page-content-wrapper">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    <button class="btn btn-primary" id="menu-toggle">Ver / Ocultar</button>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </nav>
+    
+                <div class="container-fluid">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+        {% bootstrap_javascript jquery='full' %}
+         <!-- Menu Toggle Script -->
+         <script>
+            $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+            });
+        </script>
+    </body>
+    
+</html>

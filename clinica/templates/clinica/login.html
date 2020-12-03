@@ -1,0 +1,10 @@
+{% extends "clinica/base.html" %}
+{% block body %}
+    <h1>Log In</h1>
+    <form action="{% url 'clinica:login' %}" method="POST">
+        
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+{% endblock %}

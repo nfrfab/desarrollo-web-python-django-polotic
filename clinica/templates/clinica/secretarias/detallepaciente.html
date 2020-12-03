@@ -1,0 +1,66 @@
+{% extends "clinica/secretarias/base.html" %}
+{% block body %}
+    <div class="container">
+        <h1>Secretaria: {{ personal.nombre }}</h1>
+        <h2>Paciente: {{ paciente.nombre }}</h2>
+        <p>
+        <h2>Turnos registrados</h2>
+        <div class="list-group">
+            <table class="table table-condensed table-striped table-bordered table-hover">
+
+                <thead>
+                    <tr>
+                        <th style="width:5%">#</th>	
+                        <th style="width:10%">Fecha</th>  
+                        <th style="width:10%">Hora</th>
+                        <th style="width:25%">Medico</th>
+                        <th style="width:25%">Accion</th>
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for turno in turnos %}
+                        <tr>
+                            <td>{{turno.id}}</td>
+                            <td>{{turno.fecha}}</td>
+                            <td>{{turno.hora}}</td>
+                            <td>{{turno.medico}}</td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <a href="{% url 'clinica:edicionTurno' turno.id %}"">	 
+                                            <button class="btn btn-primary" type="submit">Editar Turno</button>
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <form class="form-inline" action="{% url 'clinica:borrarTurno' turno.id %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="idTurno" value="{{turno.id}}"/>
+                                            <button class="btn btn-primary " type="submit">Borrar Turno</button>
+                                        </form>
+                                    </div>
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p>
+        <h2>Nuevo turno</h2>
+        <form action="{% url 'clinica:nuevoTurno' personal.id %}" method="POST">
+            
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit">
+        </form>
+        <div class="row">
+            <a href="{% url 'clinica:secretariasIndex' %}"">	 <hr class="mb-4">
+                <button class="btn btn-success btn-lg btn-block" type="submit">Volver</button>
+            </a>
+        </div>
+    </div>
+    
+    
+{% endblock %}
